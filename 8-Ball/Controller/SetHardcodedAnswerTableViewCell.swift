@@ -17,8 +17,6 @@ class SetHardcodedAnswerTableViewCell: UITableViewCell {
     @IBAction func tapEnterPrediction(_ sender: UIButton) {
         predictionsTextField.endEditing(true)
     }
-
-    var ballManager = BallManager()
     
     override func awakeFromNib() {
         super.awakeFromNib()

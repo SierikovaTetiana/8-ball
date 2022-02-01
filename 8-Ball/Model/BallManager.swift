@@ -16,12 +16,14 @@ protocol BallManagerDelegate {
 class BallManager {
     
     let ballURL = "https://8ball.delegator.com/magic/JSON/what"
-    var hardcodedAnswer = ["Reply hazy, try again later"]
+    var hardcodedAnswer = [String]()
     
+    init(hardcodedAnswer: [String]) {
+        self.hardcodedAnswer = hardcodedAnswer
+      }
     
     var delegate: BallManagerDelegate?
     
-     
     func performRequest(ballUrl: String) {
         if let urlBallURL = URL(string: ballUrl) {
             let session = URLSession(configuration: .default)
@@ -59,3 +61,4 @@ class BallManager {
     }
 }
 
+var ballInstance = BallManager(hardcodedAnswer: ["Reply hazy, try again later"])

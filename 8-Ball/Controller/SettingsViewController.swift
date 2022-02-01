@@ -10,7 +10,7 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var settingsTable: UITableView!
     
-    var ballManager = BallManager()
+//    let ballManager = BallManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +19,7 @@ class SettingsViewController: UIViewController {
         settingsTable.register(UINib(nibName: "setHardcodedAnswerTableViewCell", bundle: nil), forCellReuseIdentifier: "setHardcodedAnswer")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
+    
 }
 
 
@@ -37,7 +35,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "setHardcodedAnswer", for: indexPath) as! SetHardcodedAnswerTableViewCell
         cell.predictionsTextField.delegate = self
         
-        cell.predictionsLabel.text = ballManager.hardcodedAnswer.compactMap({ return " •  " + $0 }).joined(separator: "\n")
+//        cell.predictionsLabel.text = ballManager.hardcodedAnswer.compactMap({ return " •  " + $0 }).joined(separator: "\n")
+        cell.predictionsLabel.text = ballInstance.hardcodedAnswer.compactMap({ return " •  " + $0 }).joined(separator: "\n")
         
         return cell
     }
@@ -45,7 +44,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate, UI
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let predictionText = textField.text {
             if predictionText != "" {
-                ballManager.hardcodedAnswer.append(predictionText)
+//                ballManager.hardcodedAnswer.append(predictionText)
+                ballInstance.hardcodedAnswer.append(predictionText)
                 settingsTable.reloadData()
             } else {
                 textField.placeholder = "Enter some text"

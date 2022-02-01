@@ -12,17 +12,14 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var answerLabel: UILabel!
     
-    var ballManager = BallManager()
+    let ballManager = BallManager(hardcodedAnswer: ["Reply hazy, try again later"])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         becomeFirstResponder()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         ballManager.delegate = self
     }
+
     
 }
 
@@ -54,7 +51,8 @@ extension ViewController: BallManagerDelegate {
                 ballManager.performRequest(ballUrl: ballManager.ballURL)
                 print("Network is connected")
             } else {
-                self.answerLabel.text = ballManager.hardcodedAnswer.randomElement()!
+//                self.answerLabel.text = ballManager.hardcodedAnswer.randomElement()!
+                self.answerLabel.text = ballInstance.hardcodedAnswer.randomElement()!
                 print("Network is not connected")
             }
         }
