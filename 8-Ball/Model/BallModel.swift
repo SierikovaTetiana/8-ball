@@ -8,6 +8,5 @@
 import Foundation
 
 struct BallModel {
-    
     let answer: String 
 }

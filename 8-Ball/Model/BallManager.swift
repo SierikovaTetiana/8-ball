@@ -6,22 +6,18 @@
 //
 
 import Foundation
+import CoreData
 
 protocol BallManagerDelegate {
     func didUpdateAnswer(_ ballManager: BallManager, ballData: BallModel)
     func didFailWithError(error: Error)
-    
 }
 
 class BallManager {
     
+    static let ballInstance = BallManager()
     let ballURL = "https://8ball.delegator.com/magic/JSON/what"
-    var hardcodedAnswer = [String]()
-    
-    init(hardcodedAnswer: [String]) {
-        self.hardcodedAnswer = hardcodedAnswer
-      }
-    
+    var hardcodedAnswer = ["Reply hazy, try again later"]
     var delegate: BallManagerDelegate?
     
     func performRequest(ballUrl: String) {
@@ -33,17 +29,14 @@ class BallManager {
                     self.delegate?.didUpdateAnswer(self, ballData: BallModel(answer: self.hardcodedAnswer.randomElement()!))
                     return
                 }
-                
                 if let safeData = data {
                     if let answer = self.parseJson(safeData) {
                         self.delegate?.didUpdateAnswer(self, ballData: answer)
                     }
                 }
-                
             }
             task.resume()
         }
-        
     }
     
     func parseJson(_ ballData: Data) -> BallModel? {
@@ -57,8 +50,5 @@ class BallManager {
             let hardAnswer = BallModel(answer: hardcodedAnswer.randomElement()!)
             return hardAnswer
         }
-        
     }
 }
-
-var ballInstance = BallManager(hardcodedAnswer: ["Reply hazy, try again later"])

@@ -9,7 +9,6 @@ import Foundation
 
 struct BallData: Codable {
     let magic: Magic
-//    let answer: String
 }
 
 struct Magic: Codable {
